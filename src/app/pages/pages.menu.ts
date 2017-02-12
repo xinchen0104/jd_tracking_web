@@ -7,7 +7,7 @@ export const PAGES_MENU = [
         data: { // custom menu declaration
           menu: {
             title: 'Demo Page', // menu title
-            icon: 'ion-android-home', // menu icon
+            icon: 'ion-android-document', // menu icon
             selected: false,
             expanded: false,
             order: 0
