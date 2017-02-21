@@ -6,15 +6,39 @@ export const PAGES_MENU = [
         path: 'demo',  // path for our page
         data: { // custom menu declaration
           menu: {
-            title: 'Demo Page', // menu title
-            icon: 'ion-android-document', // menu icon
+            title: '品牌分析', // menu title
+            icon: 'ion-android-home', // menu icon
             selected: false,
             expanded: false,
             order: 0
           }
         }
       },
-      {
+       {
+        path: '',  // path for our page
+        data: { // custom menu declaration
+          menu: {
+            title: '竞品分析', // menu title
+            icon: 'ion-stats-bars', // menu icon
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      },
+       {
+        path: '',  // path for our page
+        data: { // custom menu declaration
+          menu: {
+            title: '销量影响因素分析', // menu title
+            icon: 'ion-android-laptop', // menu icon
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      }
+     /* {
         path: 'dashboard',
         data: {
           menu: {
@@ -336,7 +360,7 @@ export const PAGES_MENU = [
             target: '_blank'
           }
         }
-      }
+      }*/
     ]
   }
 ];

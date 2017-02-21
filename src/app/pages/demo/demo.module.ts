@@ -7,10 +7,13 @@ import { FormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 
 import { brandSelector } from './brandSelector';
+import { displayedChart } from './displayedChart';
 import { Demo } from './demo.component';
 import { routing } from './demo.routing';
 
 import { BrandSelectorService} from './brandSelector/brandSelector.service';
+import { DisplayedChartService} from './displayedChart/displayedChart.service';
+import { EventService } from './lib/event.service';
 
 @NgModule({
     imports: [
@@ -21,10 +24,13 @@ import { BrandSelectorService} from './brandSelector/brandSelector.service';
     ],
     declarations: [
         brandSelector,
+        displayedChart,
         Demo
     ],
     providers: [
-        BrandSelectorService
+        BrandSelectorService,
+        DisplayedChartService,
+        EventService
     ]
 })
 export class DemoModule {}

@@ -1,0 +1,81 @@
+<section class="chartist">
+  <div class="row">
+    <div class="col-md-6 ">
+      <ba-card title="各品牌口碑指数" baCardClass="with-scroll">
+        <ba-chartist-chart baChartistChartClass="ct-chart"
+                           baChartistChartType="Bar"
+                           [baChartistChartData]="data['brandsIndexData']"
+                           [baChartistChartOptions]="data['barOptions']">
+        </ba-chartist-chart>
+      </ba-card>
+    </div>
+    <div class="col-md-6 ">
+      <ba-card title="指数-时间图" baCardClass="with-scroll">
+        <ba-chartist-chart baChartistChartClass="ct-chart"
+                           baChartistChartType="Line"
+                           [baChartistChartData]="data['indexTimeData']"
+                           [baChartistChartOptions]="data['lineOptions']">
+        </ba-chartist-chart>
+
+      </ba-card>
+    </div>
+
+  </div>
+  <div class="raw">
+    <div class="col-md-12">
+      <ba-card title="价格-指数图" baCardClass="with-scroll">
+        <ba-chartist-chart baChartistChartClass="ct-chart"
+                           baChartistChartType="Bar"
+                           [baChartistChartData]="data['indexPriceData']"
+                           [baChartistChartOptions]="data['multiBarOptions']"
+                           [baChartistChartResponsive]="data['multiBarResponsive']">
+        </ba-chartist-chart>
+      </ba-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 ">
+      <ba-card title="各品牌购买指数" baCardClass="with-scroll">
+        <ba-chartist-chart baChartistChartClass="ct-chart"
+                           baChartistChartType="Bar"
+                           [baChartistChartData]="data['brandsIndexData2']"
+                           [baChartistChartOptions]="data['barOptions']">
+        </ba-chartist-chart>
+      </ba-card>
+    </div>
+    <div class="col-md-6 ">
+      <ba-card title="指数-时间图" baCardClass="with-scroll">
+        <ba-chartist-chart baChartistChartClass="ct-chart"
+                           baChartistChartType="Line"
+                           [baChartistChartData]="data['indexTimeData2']"
+                           [baChartistChartOptions]="data['lineOptions']">
+        </ba-chartist-chart>
+
+      </ba-card>
+    </div>
+
+  </div>
+    <div class="row">
+    <div class="col-md-6 ">
+      <ba-card title="各品牌关注指数" baCardClass="with-scroll">
+        <ba-chartist-chart baChartistChartClass="ct-chart"
+                           baChartistChartType="Bar"
+                           [baChartistChartData]="data['brandsIndexData3']"
+                           [baChartistChartOptions]="data['barOptions']">
+        </ba-chartist-chart>
+      </ba-card>
+    </div>
+    <div class="col-md-6 ">
+      <ba-card title="指数-时间图" baCardClass="with-scroll">
+        <ba-chartist-chart baChartistChartClass="ct-chart"
+                           baChartistChartType="Line"
+                           [baChartistChartData]="data['indexTimeData3']"
+                           [baChartistChartOptions]="data['lineOptions']">
+        </ba-chartist-chart>
+
+      </ba-card>
+    </div>
+
+  </div>
+
+</section>

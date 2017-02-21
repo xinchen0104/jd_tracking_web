@@ -8,22 +8,42 @@ import { Catalog } from '../lib/catalog';
 @Injectable()
 export class BrandSelectorService{
   private headers = new Headers({'Content-Type': 'application/json'});
-  private catalogsUrl = 'api/catalogs';  // URL to web api
+  private catalogsUrl = 'api/catalog';  // URL to web api
   private brandUrl = 'api/brand';
 
   constructor(private http: Http) { }
-  getCatalogs(parentCatalogId: string) : Promise<Catalog[]>{
+  getCatalogs(parentCatalog: Catalog, keyword : string) : Promise<Catalog[]>{
+    var parentCatalogId;
+    var CatalogType;
+    if(parentCatalog == null){
+      parentCatalogId = null;
+      CatalogType = "FIRST";
+    }else{
+      parentCatalogId = parentCatalog.catalogId;
+      switch(parentCatalog.catalogType){
+        case "FIRST" : 
+          CatalogType = "SECOND";
+          break;
+        case "SECOND" : 
+          CatalogType = "THIRD";
+          break;
+      }
+    }
     return this.http
-        .post(this.catalogsUrl, JSON.stringify({action : "getCatalogsByParentId", parentCatalogId : parentCatalogId}), {headers : this.headers})
+        .post(this.catalogsUrl, JSON.stringify({action : "getCatalogsByParentId", parentCatalogId : parentCatalogId, catalogType : CatalogType, keyword : keyword}), {headers : this.headers})
         .toPromise()
-        .then(res=>res.json().data)
+        .then(res=>res.json() as Catalog[])
         .catch(this.handleError);
   }
-  getBrands(parentCatalogId: string) : Promise<Brand[]>{
+
+  
+  getBrands(parentCatalog: Catalog, keyword : string) : Promise<Brand[]>{
+    var parentCatalogId;
+    parentCatalogId = parentCatalog.catalogId;
     return this.http
-        .post(this.brandUrl, JSON.stringify({action : "getBrandsByParentId", parentCatalogId : parentCatalogId}), {headers : this.headers})
+        .post(this.brandUrl, JSON.stringify({action : "getBrandsByParentId", parentCatalogId : parentCatalogId, keyword : keyword}), {headers : this.headers})
         .toPromise()
-        .then(res=>res.json().data)
+        .then(res=>res.json() as Brand[])
         .catch(this.handleError);
   }
 

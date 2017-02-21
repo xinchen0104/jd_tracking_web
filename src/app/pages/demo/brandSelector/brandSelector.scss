@@ -94,11 +94,9 @@ $btn-icon-size: 34px;
 
 .button-panel {
   height: 280px;
-  .btn {
-    width: 150px;
-  }
   .btn-xs {
-    width: 60px;
+    min-width: 60px;
+    max-width: 150px;
   }
   .btn-sm {
     width: 90px;

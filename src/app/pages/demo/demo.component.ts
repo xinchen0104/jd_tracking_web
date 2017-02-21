@@ -1,7 +1,8 @@
 /**
  * Created by pcpulabfed on 2/9/17.
  */
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { EventService } from './lib/event.service';
 
 @Component({
     selector: 'demo',
@@ -9,5 +10,5 @@ import {Component} from '@angular/core';
     templateUrl: './demo.html'
 })
 export class Demo {
-    constructor() {}
+    constructor(public _eventService : EventService) {}
 }

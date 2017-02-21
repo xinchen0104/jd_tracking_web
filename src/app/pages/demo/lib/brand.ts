@@ -1,10 +1,8 @@
+import { Catalog } from './catalog'
 export class Brand{
     brandId : String;
-    name : String;
-    thirdCatalogId : String;
-    thirdCatalogName : String; 
-    SecondCatalogId : String;
-    SecondCatalogName : String;
-    FirstCatalogId : String;
-    FirstCatalogName : String; 
+    brandName : String;
+    thirdCatalog : Catalog; 
+    SecondCatalogId : Catalog;
+    FirstCatalogId : Catalog; 
 }

@@ -4,14 +4,14 @@ import 'style-loader!./brandSelector.scss';
 
 import { Brand } from '../lib/brand';
 import { Catalog } from '../lib/catalog';
+import { EventService } from '../lib/event.service';
 import { BrandSelectorService } from './brandSelector.service';
 @Component({
   selector: 'brandSelector',
-  templateUrl: './brandSelector.html',
-
+  templateUrl: './brandSelector.html'
 })
 export class brandSelector implements OnInit{
-  keyword : String;
+  keyword : string;
   firstCatalogs : Catalog[];
   secondCatalogs : Catalog[];
   thirdCatalogs : Catalog[];
@@ -21,55 +21,102 @@ export class brandSelector implements OnInit{
   selectedThirdCatalog : Catalog;
   selectBrand : Brand;
   newSelected : any;
-  constructor(private brandSelectorService: BrandSelectorService,
+  constructor(private _brandSelectorService: BrandSelectorService,
+    public _eventService : EventService,
     private router: Router) {
   }
   ngOnInit(){
     console.log("ngOnInit");
-    this.keyword = "九牧王";
+    this.keyword = "九牧王（JOEONE）";
     this.updateList();
   }
   updateList(){
     console.log("updateList");
+    console.log(this.newSelected);
     if(this.newSelected == null){
         this.initList();
     }
     else if(this.newSelected == this.selectedFirstCatalog){
-        this.brandSelectorService
-            .getCatalogs(this.newSelected)
-            .then(catalogs => this.secondCatalogs = catalogs);
-        this.selectedSecondCatalog = this.secondCatalogs[0];
-        this.newSelected = this.selectedSecondCatalog;
-        this.updateList(); 
+        console.log("query secondCatalogs");
+        this._brandSelectorService
+            .getCatalogs(this.newSelected, this.keyword)
+            .then(catalogs => {
+                console.log(catalogs);
+                this.secondCatalogs = catalogs;
+                this.selectedSecondCatalog = this.secondCatalogs[0];
+                this.newSelected = this.selectedSecondCatalog;
+                this.updateList();
+            }); 
     } 
     else if(this.newSelected == this.selectedSecondCatalog){
-        this.brandSelectorService
-            .getCatalogs(this.newSelected)
-            .then(catalogs => this.thirdCatalogs = catalogs);
-        this.selectedThirdCatalog = this.thirdCatalogs[0];
-        this.newSelected = this.selectedThirdCatalog;
-        this.updateList();     
+        console.log("query thirdCatalogs");
+        this._brandSelectorService
+            .getCatalogs(this.newSelected, this.keyword)
+            .then(catalogs => {
+                console.log(catalogs);
+                this.thirdCatalogs = catalogs;
+                this.selectedThirdCatalog = this.thirdCatalogs[0];
+                this.newSelected = this.selectedThirdCatalog;
+                this.updateList();
+            });     
     } 
     else if(this.newSelected == this.selectedThirdCatalog){
-        this.brandSelectorService
-            .getBrands(this.newSelected)
-            .then(brands => this.brands = brands);
-        this.selectBrand = this.brands[0];
-        this.newSelected = this.selectBrand;
-        this.updateChart();
+        console.log("query Brands");
+        this._brandSelectorService
+            .getBrands(this.newSelected, this.keyword)
+            .then(brands => {
+                console.log(brands);
+                this.brands = brands;
+                this.selectBrand = this.brands[0];
+                this.newSelected = this.selectBrand;
+                this.updateChart();
+            });
     } 
   }
+
+
   updateChart(){
-      console.log("updateChart");
+      console.log("brandSelector.updateChart");
+      var event = {
+        type : "updateChart",
+        brand : this.selectBrand,
+        thirdCatalog : this.selectedThirdCatalog
+      };
+      this._eventService.eventBox$.emit(JSON.stringify(event));
   }
-  catalogOnSelect(){
+  catalogOnSelect(catalog : Catalog){
       console.log("catalogOnSelect");
+      switch(catalog.catalogType){
+          case "FIRST":
+            this.selectedFirstCatalog = catalog;
+            break;
+          case "SECOND":
+            this.selectedSecondCatalog = catalog;
+            break;
+          case "THIRD":
+            this.selectedThirdCatalog = catalog;
+            break;
+      }
+      this.newSelected = catalog;
+      this.updateList();
   }
   brandOnSelect(){
       console.log("brandOnSelect");
   }
   initList(){
       console.log("initList");
+      this._brandSelectorService
+            .getCatalogs(null, this.keyword)
+            .then(catalogs => {
+                console.log(catalogs);
+                this.firstCatalogs = catalogs;
+                this.selectedFirstCatalog = this.firstCatalogs[0];
+                //
+                    this.firstCatalogs.splice(1,2);
+                //
+                this.newSelected = this.selectedFirstCatalog;
+                this.updateList();
+            });
   }
 
 
